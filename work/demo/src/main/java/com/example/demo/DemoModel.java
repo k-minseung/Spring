@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Data
 public class DemoModel {
+
 	@NonNull
 	String id;
-	
 }
+
+
+
+

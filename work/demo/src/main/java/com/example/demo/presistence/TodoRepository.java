@@ -14,10 +14,10 @@ import com.example.demo.model.TodoEntity;
 @Repository//@Component의 자식 컴포넌트, 컴포넌트 스캔시 Bean으로 생성됨
 public interface TodoRepository extends JpaRepository<TodoEntity, String> {
 
-   // 기본쿼리가 아닌 쿼리는 어떻게 처리해야할까
-   // JPA가 메서드의 이름을 파싱해서 SELECT * FROM Todo WHERE userId = '{userId} 와같은
-   // 쿼리를 작성해서 실행해준다.
-   // ?1 : 메서드의 매개변수 순서 위치
-	@Query("SELECT* FROM todo_entity t WHERE t.user_id = ?1")
-   List<TodoEntity> findByUserId(String userId);
+	// 기본쿼리가 아닌 쿼리는 어떻게 처리해야할까
+	// JPA가 메서드의 이름을 파싱해서 SELECT * FROM Todo WHERE userId = '{userId} 와같은
+	// 쿼리를 작성해서 실행해준다.
+	// ?1 : 메서드의 매개변수 순서 위치
+	@Query("SELECT t FROM TodoEntity t where t.userId = ?1")
+	List<TodoEntity> findByUserId(String userId);
 }
