@@ -25,13 +25,10 @@ public class TodoDTO {
 		this.done = entity.isDone();
 	}
 	
-	// DTO -> Entity로 바꿔주는 메서드
+	// DTO -> Entity
 	public static TodoEntity toEntity(TodoDTO dto) {
 		return TodoEntity.builder().id(dto.getId()).title(dto.getTitle()).done(dto.isDone()).build();
 	}
-	
-	
-	
 }
 
 
