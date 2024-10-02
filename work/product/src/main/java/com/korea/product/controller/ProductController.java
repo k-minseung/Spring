@@ -3,6 +3,7 @@ package com.korea.product.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,15 +48,31 @@ public class ProductController {
 	     List<ProductDTO> products = service.getFilteredProducts(minPrice, name);
 	     return ResponseEntity.ok().body(products);
 	}
-	
+	     
 	//상품 수정
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateProduct(@RequestBody ProductDTO dto){
+	public ResponseEntity<?> updateProduct(@PathVariable int id, @RequestBody ProductDTO dto){
+		ProductDTO products = service.updateProduct(id, dto);
+		if(products !=null) {
+			return ResponseEntity.ok().body(products);
+		}
+		return ResponseEntity.badRequest().body("업데이트가 안됐습니다");
+	}
+	
+	//상품삭제
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable int id){
+		boolean isDeleted = service.deleteProduct(id);
+		if(isDeleted) {
+			return ResponseEntity.ok("isDeleted");
+		} else {
+			return ResponseEntity.badRequest().body("Not Deleting");
+		}
+		
+	}
+	
 	
 }
-
-
-
 
 
 

@@ -72,7 +72,10 @@ public class ProductService {
 	
 	//상품수정
 	public ProductDTO updateProduct(int id, ProductDTO dto){
+		//db에 id에 해당하는 데이터가 있는지 조회
 		Optional<ProductEntity> original = repository.findById(id);
+		
+		//있으면 매개변수로 넘어온dto에 있는 내용으로 기존의 내용을 갱신
 		if(original.isPresent()) {
 			ProductEntity entity = original.get();
 			entity.setName(dto.getName());
@@ -83,6 +86,17 @@ public class ProductService {
 		}
 		return null;
 		
+	}
+	
+	//상품삭제
+	public boolean deleteProduct(int id) {
+		Optional<ProductEntity> original = repository.findById(id);
+		
+		if(original.isPresent()) {
+			repository.deleteById(id);
+            return true;
+		}
+		return false;
 	}
 }
 
