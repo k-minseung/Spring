@@ -1,8 +1,3 @@
-/**
- * 
- */
-/**
- * 
- */
-module Ex0925 {
+module name {
+	
 }

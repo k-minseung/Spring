@@ -58,7 +58,7 @@ public class TokenProvider {
 
 	//검증하는 알고리즘 생성
 	
-	public String vaildateAndGetUserId(String token) {
+	public String validateAndGetUserId(String token) {
 		Claims claims = Jwts.parser()//parser() : 파싱.읽어오겠다는뜻
 							//토큰을 생성할 때 사용했던 서명키
 							.setSigningKey(SECRET_KEY)
