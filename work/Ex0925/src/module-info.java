@@ -1,3 +1,9 @@
-module name {
+/**
+ * 
+ */
+/**
+ * 
+ */
+module Ex0925 {
 	
 }

@@ -1,6 +1,10 @@
-package com.korea.product.model;
+package com.korea.product.Model;
 
-import jakarta.annotation.Generated;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,17 +16,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor // JPA에서 Entity객체를 데이터베이스에소 조회하려고 할 때 없으면 문제가 발생할 수 있다.
+@NoArgsConstructor
 @AllArgsConstructor
-
 @Builder
 @Entity
-@Table(name="products")
+@Table(name = "product")
 public class ProductEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String name;
-	private String description;
-	private double price;
+	private int id; 		// 상품아이디
+	
+	private String name; 	// 상품이름
+	private int stock;		// 상품재고
+	private int price;		// 상품가격	
+	
+	@CreationTimestamp //insert 쿼리가 발생할 때 시간 값을 적용시켜주는 어노테이션
+	private LocalDateTime insertDate; 	// 등록날짜
+	
+	@UpdateTimestamp   //update 쿼리가 발생할 때 시간 값을 적용시켜주는 어노테이션
+	//LocalDateTime.now() : 현재 시간을 저장
+	private LocalDateTime updateDate = LocalDateTime.now(); // 수정날짜
+	
+	
 }
