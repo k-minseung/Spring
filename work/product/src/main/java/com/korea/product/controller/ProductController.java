@@ -37,12 +37,15 @@ public class ProductController {
 
 	
 	//추가하기
-	@PostMapping
-	public ResponseEntity<?> createProduct(@RequestBody ProductDTO dto){
-		ProductEntity entity = ProductDTO.toEntity(dto);
-		List<ProductDTO> product = service.create(entity);
-		return ResponseEntity.ok().body(product);
-	}
+	   @PostMapping
+	   public ResponseEntity<?> createProduct(@RequestBody ProductDTO dto){
+	      List<ProductDTO> dtos = service.create(dto);
+	      ResponseDTO<ProductDTO> response = ResponseDTO.<ProductDTO>builder()
+	                                       .data(dtos)
+	                                       .build();
+	      return ResponseEntity.ok().body(response);
+	   }
+
 }
 
 

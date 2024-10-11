@@ -36,10 +36,16 @@ public class ProductService {
 
 	
 	//추가하기
-	public List<ProductDTO> create(ProductEntity entity){
-		repository.save(entity);
-		return repository.findAll().stream().map(ProductDTO :: new).collect(Collectors.toList());
-			
+	   public List<ProductDTO> create(ProductDTO dto){
+	      //dto -> entity
+	      ProductEntity entity = ProductDTO.toEntity(dto);
+	      
+	      //넘어온 데이터를 데이터베이스에 추가
+	      repository.save(entity);
+	      
+	      //다시 조회해서 반환
+	      return findAll();
+	
 	}
 		
 }
