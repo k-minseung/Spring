@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.korea.user.UserDto.UserDTO;
+import com.korea.user.dto.UserDTO;
 import com.korea.user.model.UserEntity;
-import com.korea.user.persistence.UserRepository;
+import com.korea.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,77 +16,45 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
 	
-	private final UserRepository repository;
-		// 사용자생성
-		// 컨트롤러부터 이름과 이메일이 담긴 entity 넘겨받음
-		// db에 추가 한 후 추가가 잘 됐는지 조회를 한 데이터를 컨트롤러로 넘겨야한다.
-	public List<UserDTO> create(UserEntity entity){
-		repository.save(entity); // 데이터베이스에 저장
+	private final UserRepository userRepository;
+	
+	//id중복첸크 메서드 만들기
+	//id를 db로 전달해서 조회되면 false 안되면 true를 반환
+	//true 면 아이디생성가능 , false 면 아이디 생성 불가능
+	public boolean isIdDuplicate(String id) {
+		Optional<UserEntity> user = userRepository.findByUserId(id);
+		return !user.isPresent();//!(not)을 붙이지 않으면조회가 되면 true 안되면 false라는 뜻
+	}
+	
+	
+	//회원추가  
+	public List<UserDTO> insert(UserDTO dto){
 		
-		// List<UserEntity> -> List<UserDTO>로 변환
-		return repository.findAll().stream().map(UserDTO :: new).collect(Collectors.toList());
+		//dto -> entity
+		UserEntity entity = UserDTO.toEntity(dto);
+		
+		//entity를 db에 저장
+		userRepository.save(entity);
+		
+		//List<UserEntity> -> List<UserDTO>
+		return userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
 		
 	}
 	
-	//모든유저 조회하기
-	public List<UserDTO> getAllUsers(){
-		return repository.findAll().stream().map(UserDTO :: new).collect(Collectors.toList());
+	//유저 전체 조회
+	public List<UserDTO> allUser() {	
+		List<UserDTO> list = userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
+		return list;
 	}
 	
-	//email을 통해 한 명의 사용자 검색하기
-	public UserDTO getUserByEmail(String email){
-		UserEntity entity = repository.findByEmail(email);
-		return new UserDTO(entity);
+	//로그인
+	//아이디랑 비밀번호를 받는다.
+	public UserEntity getByCredential(String userId, String pwd) {
+		return userRepository.findByUserIdAndPwd(userId,pwd);
 	}
 	
-	public List<UserDTO> updateUser(UserEntity entity) {
-		//Id를 통해서 DB에 저장되어있는 객체를 찾는다.
-		Optional<UserEntity> original = repository.findById(entity.getId());
-		
-		original.ifPresent(userEntitiy -> {
-			//이름과 이메일을 객체에 setting을 한다.
-			userEntitiy.setName(entity.getName());
-			userEntitiy.setEmail(entity.getEmail());
-			
-		//업데이트된 사용자 정보 저장
-		repository.save(userEntitiy);
-		});
-		return getAllUsers();
-		
-	}
 	
-	public boolean deleteUser(int id){
-		//id를 통해 유저가 존재하는지 먼저 확인
-		Optional<UserEntity> exisit = repository.findById(id);
-		
-		if(exisit.isPresent()) {
-			repository.deleteById(id);
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
+	
+	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

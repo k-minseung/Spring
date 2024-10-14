@@ -1,4 +1,4 @@
-package com.korea.product.dto;
+package com.korea.user.dto;
 
 import java.util.List;
 
@@ -8,15 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ResponseDTO<T> {
 	private String error;
 	private List<T> data;
+	private T value;
 }
-
-
-
-
-
