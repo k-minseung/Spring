@@ -7,12 +7,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//속성
+//token
+//idx
+//id
+//pwd
+//name
+//email
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
-	
+
 	private String token;
 	private int idx;
 	private String userId;
@@ -20,23 +28,27 @@ public class UserDTO {
 	private String name;
 	private String email;
 	
-	//Entity -> DTO
 	public UserDTO(UserEntity entity) {
 		this.idx = entity.getIdx();
 		this.userId = entity.getUserId();
 		this.pwd = entity.getPwd();
 		this.name = entity.getName();
-		this.email = entity.getEmail();
+		this.email = entity.getPwd();
 	}
 	
-	//DTO -> Entity
-	public static UserEntity toEntity (UserDTO dto) {
+	//dto -> entity
+	public static UserEntity toEntity(UserDTO dto) {
 		return UserEntity.builder()
-					.idx(dto.getIdx())
-					.userId(dto.getUserId())
-					.pwd(dto.getPwd())
-					.name(dto.getName())
-					.email(dto.getEmail())
-					.build();
+				.userId(dto.getUserId())
+				.pwd(dto.getPwd())
+				.name(dto.getName())
+				.email(dto.getEmail())
+				.build();
 	}
+	
+	
+	
+	
+	
+	
 }
