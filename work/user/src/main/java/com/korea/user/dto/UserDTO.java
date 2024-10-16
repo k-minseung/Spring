@@ -33,7 +33,7 @@ public class UserDTO {
 		this.userId = entity.getUserId();
 		this.pwd = entity.getPwd();
 		this.name = entity.getName();
-		this.email = entity.getPwd();
+		this.email = entity.getEmail();
 	}
 	
 	//dto -> entity

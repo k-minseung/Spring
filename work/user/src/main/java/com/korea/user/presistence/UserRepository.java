@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.korea.user.dto.UserDTO;
 import com.korea.user.model.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity,Integer> {
@@ -13,6 +14,8 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 	Optional<UserEntity> findByUserId(String id);
 
 	UserEntity findByuserIdAndPwd(String userId, String pwd);
+
+	
 
 	
 }
