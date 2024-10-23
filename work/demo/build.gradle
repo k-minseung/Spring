@@ -34,20 +34,26 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	// https://mvnrepository.com/artifact/com.google.guava/guava
 	implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools
-	implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '3.3.2'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
-	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
-	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
-	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-gson
-	implementation group: 'io.jsonwebtoken', name: 'jjwt-gson', version: '0.11.5'
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.4'
 	
 	// Test용 Lombok 추가
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+	
+   //Jwt
+   // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+   implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+   // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
+   runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+   // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-gson
+   implementation group: 'io.jsonwebtoken', name: 'jjwt-gson', version: '0.11.5'
+   
+   //spring boot security
+   // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.2.4'
+   
+   // https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client
+   implementation group: 'org.springframework.security', name: 'spring-security-oauth2-client', version: '6.3.1'
+   
 	
 }
 
@@ -55,18 +61,9 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.named('jar') {
+tasks.named('jar'){
 	enabled=false
 }
-
-
-
-
-
-
-
-
-
 
 
 

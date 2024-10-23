@@ -1,0 +1,18 @@
+spring: #스프링부트 설정을 위한 최상위 키워드
+  security: #스프링 시큐리티 설정
+    oauth2: #OAuth2 인증관련 설정
+      client: #OAuth2 클라이언트 설정
+        registration: #OAuth2 클라이언트 등록 설정
+          github: #GitHub OAuth2 클라이언트 설정(이름을 github로 정의 구글이면 google, 페이스북이면 factbook)
+            clientId: Ov23liEXlVI1NY79RtCW #Github OAuth2 앱의 클라이언트 ID(Github에서 발급받은 값이 들어감)
+            clientSecret: a49791d23823fded0d9bfa44643d17c0ac80f018 #Github OAuth2 앱의 클라이언트 시크릿
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}" #OAuth2 인증 후 리다이렉션 되는 URL,{baseUrl}은 애플리케이션의 기본 URL,{registrationId}는 클라이언트 등록 ID(여기서는'github')
+            scope: #Github API를 사용할 때 요청할 권한의 범위
+              - user:email #사용자의 이메일 정보를 요청하는 범위
+              - read:user  
+    provider: #OAuth2 제공자 설정
+      github: #Github OAuth2제공자 관련 설정
+        authorization-uri: https://github.com/login/oauth/authorize
+        #사용자를 Github 로그인 페이지로 리다이렉션 하는 URI, Github OAuth2 인증의 시작점
+        token-uri: https://github.com/login/oauth/access_token
+        user-info-uri: https://api.github.com/user
